@@ -6,29 +6,30 @@
 <title>Text Counter</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;padding:25px 16px;background:#090909;color:white;font-family:Arial,sans-serif}
-main{max-width:950px;margin:auto}
+body{margin:0;padding:25px 16px;background:#8ecbff;color:#101827;font-family:Arial,sans-serif}
+main{max-width:1000px;margin:auto}
 header{text-align:center;margin:15px 0 30px}
-.logo{width:125px;height:125px;object-fit:contain;border-radius:50%;margin-bottom:15px}
+.logo{width:125px;height:125px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 18px;border:3px solid #1675e8;background:#101827}
 h1{font-size:42px;margin:5px}
-.sub{color:#aaa}
-textarea{width:100%;height:240px;padding:18px;background:#151515;color:white;border:1px solid #444;border-radius:16px;font-size:17px}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
-.stat{background:#171717;border:1px solid #444;border-radius:16px;padding:25px 8px;text-align:center}
-.num{font-size:36px;font-weight:bold}
-.label{color:#bbb;margin-top:8px}
-.buttons{display:flex;gap:12px;margin-top:16px}
-button{flex:1;padding:14px;border-radius:10px;background:white;color:black;border:0;font-weight:bold}
-footer{text-align:center;color:#777;margin-top:25px}
-@media(min-width:700px){.stats{grid-template-columns:repeat(4,1fr)}}
+.sub{color:#244d7c;font-size:17px}
+textarea{width:100%;height:240px;padding:18px;background:#f5faff;color:#101827;border:2px solid #439cff;border-radius:17px;font-size:17px;line-height:1.7;resize:vertical}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px}
+.stat{background:#d7ecff;border:2px solid #55a6ff;border-radius:18px;padding:25px 8px;text-align:center}
+.num{font-size:38px;font-weight:bold}
+.label{color:#244d7c;margin-top:9px}
+.buttons{display:flex;gap:12px;margin-top:18px}
+button{flex:1;padding:15px 8px;border-radius:12px;background:#1675e8;color:white;border:0;font-size:15px;font-weight:bold;cursor:pointer}
+button.secondary{background:#172b46;color:white}
+footer{text-align:center;color:#244d7c;margin-top:30px;font-size:14px}
+@media(min-width:700px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
 </style>
 </head>
 <body>
 <main>
 <header>
-<img class="logo" src="logo.png" alt="Text Counter logo">
+<img class="logo" src="logo.png" alt="Text Counter Logo">
 <h1>Text Counter</h1>
-<p class="sub">ტექსტის მთვლელი</p>
+<p class="sub">ტექსტის მთვლელი — მარტივი და სწრაფი</p>
 </header>
 <textarea id="text" placeholder="ჩაწერე ან ჩასვი ტექსტი აქ..."></textarea>
 <section class="stats">
@@ -39,25 +40,26 @@ footer{text-align:center;color:#777;margin-top:25px}
 </section>
 <div class="buttons">
 <button onclick="copyText()">ტექსტის კოპირება</button>
-<button onclick="clearText()">გასუფთავება</button>
+<button class="secondary" onclick="clearText()">გასუფთავება</button>
 </div>
 <footer>Text Counter · უფასო ონლაინ ხელსაწყო</footer>
 </main>
 <script>
 const t=document.getElementById('text');
 function count(){
-let s=t.value;
+const s=t.value;
 document.getElementById('words').textContent=s.trim()?s.trim().split(/\s+/u).length:0;
 document.getElementById('letters').textContent=(s.match(/\p{L}/gu)||[]).length;
 document.getElementById('digits').textContent=(s.match(/\p{N}/gu)||[]).length;
 document.getElementById('punct').textContent=(s.match(/\p{P}/gu)||[]).length;
 }
 t.addEventListener('input',count);
-function clearText(){t.value='';count();}
-function copyText(){t.select();document.execCommand('copy');}
+function clearText(){t.value='';count();t.focus();}
+async function copyText(){
+if(!t.value)return;
+try{await navigator.clipboard.writeText(t.value);}
+catch{t.select();document.execCommand('copy');}
+}
 </script>
 </body>
 </html>
-Sent
-Compose
-Write to
