@@ -2,15 +2,42 @@
 <html lang="ka">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Text Counter</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;padding:20px;font-family:Arial,sans-serif;background:linear-gradient(135deg,#101827,#2563eb);color:white}
+header{text-align:center;padding:20px 0}
+h1{font-size:clamp(32px,5vw,54px);margin:0 0 10px}
+main{width:100%;max-width:1400px;margin:auto;background:white;color:#111827;border-radius:20px;padding:24px}
+textarea{width:100%;height:42vh;min-height:220px;padding:16px;font-size:18px;border:2px solid #cbd5e1;border-radius:12px;resize:vertical}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+.stat{text-align:center;background:#eff6ff;border-radius:14px;padding:20px 8px}
+.num{font-size:clamp(28px,4vw,42px);font-weight:bold;color:#2563eb}
+.label{margin-top:8px;color:#475569}
+@media(max-width:600px){body{padding:10px}main{padding:12px}.stats{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
+<header>
 <h1>Text Counter</h1>
-<textarea id="t" placeholder="ჩაწერე ტექსტი" oninput="count()"></textarea>
-<p>სიტყვები: <span id="w">0</span></p>
-<p>სიმბოლოები: <span id="c">0</span></p>
+<p>სიტყვების, ასოებისა და სიმბოლოების მთვლელი</p>
+</header>
+<main>
+<textarea id="text" placeholder="აქ ჩაწერე ან ჩასვი ტექსტი..." oninput="count()"></textarea>
+<div class="stats">
+<div class="stat"><div class="num" id="words">0</div><div class="label">სიტყვები</div></div>
+<div class="stat"><div class="num" id="letters">0</div><div class="label">ასოები</div></div>
+<div class="stat"><div class="num" id="chars">0</div><div class="label">სიმბოლოები (გამოტოვებების გარეშე)</div></div>
+</div>
+</main>
 <script>
-function count(){let t=document.getElementById("t").value;document.getElementById("w").textContent=t.trim()?t.trim().split(/\s+/).length:0;document.getElementById("c").textContent=t.length}
+function count(){
+const t=document.getElementById("text").value;
+document.getElementById("words").textContent=t.trim()?t.trim().split(/\s+/u).length:0;
+document.getElementById("letters").textContent=(t.match(/\p{L}/gu)||[]).length;
+document.getElementById("chars").textContent=[...t].filter(c=>!/\s/u.test(c)).length;
+}
 </script>
 </body>
 </html>
