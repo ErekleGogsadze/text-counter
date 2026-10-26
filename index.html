@@ -3,81 +3,261 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Text Counter</title>
+<title>Text Counter | Blue Aurora</title>
 <style>
 *{box-sizing:border-box}
+
+:root{
+  --blue:#45d9ff;
+  --light:#a9edff;
+  --panel:rgba(12,35,76,.78);
+}
+
 body{
   margin:0;
-  padding:25px 16px;
-  background:#4682C8;
-  color:#101827;
+  min-height:100vh;
+  padding:30px 16px;
+  color:#effaff;
   font-family:Arial,sans-serif;
+  background:
+    radial-gradient(ellipse at 15% 10%,#123f79 0%,transparent 40%),
+    radial-gradient(ellipse at 85% 35%,#102f69 0%,transparent 45%),
+    linear-gradient(145deg,#030918,#071a38 55%,#031126);
+  overflow-x:hidden;
 }
+
+.aurora{
+  position:fixed;
+  inset:-30%;
+  pointer-events:none;
+  z-index:-1;
+  filter:blur(65px);
+  opacity:.7;
+  background:
+    radial-gradient(ellipse at 30% 30%,
+      rgba(0,205,255,.35),transparent 35%),
+    radial-gradient(ellipse at 65% 55%,
+      rgba(48,91,255,.35),transparent 40%),
+    radial-gradient(ellipse at 50% 75%,
+      rgba(0,255,213,.16),transparent 32%);
+  animation:aurora 12s ease-in-out infinite alternate;
+}
+
+@keyframes aurora{
+  0%{transform:translate(-3%,0) rotate(0deg) scale(1)}
+  50%{transform:translate(4%,-3%) rotate(8deg) scale(1.1)}
+  100%{transform:translate(-2%,4%) rotate(-7deg) scale(1.05)}
+}
+
 main{max-width:1000px;margin:auto}
-header{text-align:center;margin:15px 0 30px}
+
+header{text-align:center;margin:10px 0 32px}
+
 .logo{
-  width:125px;height:125px;
-  border-radius:50%;object-fit:cover;
-  display:block;margin:0 auto 18px;
-  border:3px solid #24569A;
+  width:100px;height:100px;
+  display:grid;place-items:center;
+  margin:0 auto 20px;
+  border-radius:30px;
+  font-size:48px;
+  color:#a9f0ff;
+  background:linear-gradient(145deg,#123b70,#07162f);
+  border:1px solid rgba(69,217,255,.7);
+  box-shadow:0 0 35px rgba(0,190,255,.25),
+             inset 0 0 25px rgba(0,190,255,.12);
+  transform:rotate(-4deg);
 }
-h1{font-size:42px;margin:5px}
-.sub{color:#102F59;font-size:17px}
+
+h1{
+  font-size:clamp(34px,7vw,54px);
+  margin:0;
+  letter-spacing:-1.5px;
+  background:linear-gradient(90deg,#fff,#78e8ff,#7b9dff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.sub{
+  color:#a8c8ee;
+  font-size:16px;
+  line-height:1.6;
+}
+
+.glow-line{
+  width:100px;height:3px;
+  margin:18px auto;
+  border-radius:10px;
+  background:linear-gradient(90deg,transparent,#45d9ff,transparent);
+  box-shadow:0 0 16px #45d9ff;
+}
+
 textarea{
-  width:100%;height:240px;padding:18px;
-  background:#F5F8FF;color:#101827;
-  border:2px solid #24569A;border-radius:17px;
-  font-size:17px;line-height:1.7;resize:vertical;
+  display:block;
+  width:100%;
+  min-height:230px;
+  padding:20px;
+  resize:vertical;
+  color:#f2fbff;
+  background:rgba(3,15,35,.8);
+  border:1px solid rgba(69,217,255,.45);
+  border-radius:20px;
+  outline:none;
+  font:17px/1.8 Arial,sans-serif;
+  box-shadow:0 0 28px rgba(0,130,255,.08),
+             inset 0 0 25px rgba(0,100,255,.04);
+  transition:.25s;
 }
+
+textarea:focus{
+  border-color:#45d9ff;
+  box-shadow:0 0 25px rgba(69,217,255,.17);
+}
+
+textarea::placeholder{color:#7998bd}
+
 .stats{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:14px;margin-top:20px;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:15px;
+  margin-top:20px;
 }
+
 .stat{
-  background:#DCE8F8;border:2px solid #7199CF;
-  border-radius:18px;padding:25px 8px;text-align:center;
+  position:relative;
+  overflow:hidden;
+  padding:25px 10px;
+  text-align:center;
+  border-radius:19px;
+  background:linear-gradient(145deg,
+    rgba(20,54,100,.85),rgba(6,22,49,.9));
+  border:1px solid rgba(91,193,255,.3);
+  box-shadow:0 8px 30px rgba(0,0,0,.14);
+  transition:transform .25s,border-color .25s,box-shadow .25s;
 }
-.num{font-size:38px;font-weight:bold}
-.label{color:#24466F;margin-top:9px}
-.buttons{display:flex;gap:12px;margin-top:18px}
+
+.stat::before{
+  content:"";
+  position:absolute;
+  top:0;left:15%;
+  width:70%;height:1px;
+  background:linear-gradient(90deg,transparent,#45d9ff,transparent);
+}
+
+.stat:hover{
+  transform:translateY(-4px);
+  border-color:#45d9ff;
+  box-shadow:0 0 25px rgba(0,190,255,.12);
+}
+
+.num{
+  color:#83eaff;
+  font-size:clamp(32px,6vw,43px);
+  font-weight:800;
+  text-shadow:0 0 18px rgba(69,217,255,.25);
+  overflow-wrap:anywhere;
+}
+
+.label{color:#b6cce9;margin-top:10px;font-size:14px}
+
+.buttons{display:flex;gap:12px;margin-top:20px}
+
 button{
-  flex:1;padding:15px 8px;border-radius:12px;
-  background:#173F78;color:white;border:0;
-  font-size:15px;font-weight:bold;cursor:pointer;
+  flex:1;
+  padding:15px 10px;
+  border-radius:13px;
+  border:1px solid #51dcff;
+  background:linear-gradient(110deg,#087fbd,#2357cf);
+  color:white;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:.2s;
 }
-button.secondary{background:#172B46}
-footer{text-align:center;color:#102F59;margin-top:30px;font-size:14px}
+
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 22px rgba(69,217,255,.25);
+}
+
+button.secondary{
+  background:rgba(13,30,59,.9);
+  border-color:#385b83;
+}
+
+.status{
+  min-height:22px;
+  margin-top:12px;
+  text-align:center;
+  color:#8cecff;
+  font-size:13px;
+}
+
+footer{
+  text-align:center;
+  margin-top:30px;
+  color:#799bc4;
+  font-size:13px;
+}
+
 @media(min-width:700px){
   .stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+
+@media(max-width:380px){
+  .buttons{flex-direction:column}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .aurora{animation:none}
+  *{transition:none!important}
 }
 </style>
 </head>
 <body>
+<div class="aurora"></div>
+
 <main>
 <header>
-<img class="logo" src="logo.png.jpg" alt="Text Counter Logo">
-<h1>Text Counter</h1>
-<p class="sub">ტექსტის მთვლელი — მარტივი და სწრაფი</p>
+  <div class="logo" aria-label="Text Counter logo">✦</div>
+  <h1>Text Counter</h1>
+  <p class="sub">ტექსტის მთვლელი — მარტივი, სწრაფი და ლამაზი</p>
+  <div class="glow-line"></div>
 </header>
 
 <textarea id="text" placeholder="ჩაწერე ან ჩასვი ტექსტი აქ..."></textarea>
 
 <section class="stats">
-<div class="stat"><div class="num" id="words">0</div><div class="label">📝 სიტყვები</div></div>
-<div class="stat"><div class="num" id="letters">0</div><div class="label">🔤 ასოები</div></div>
-<div class="stat"><div class="num" id="digits">0</div><div class="label">🔢 ციფრები</div></div>
-<div class="stat"><div class="num" id="punct">0</div><div class="label">✍️ სასვენი ნიშნები</div></div>
+  <div class="stat">
+    <div class="num" id="words">0</div>
+    <div class="label">📝 სიტყვები</div>
+  </div>
+  <div class="stat">
+    <div class="num" id="letters">0</div>
+    <div class="label">🔤 ასოები</div>
+  </div>
+  <div class="stat">
+    <div class="num" id="digits">0</div>
+    <div class="label">🔢 ციფრები</div>
+  </div>
+  <div class="stat">
+    <div class="num" id="punct">0</div>
+    <div class="label">✍️ სასვენი ნიშნები</div>
+  </div>
 </section>
 
 <div class="buttons">
-<button onclick="copyText()">ტექსტის კოპირება</button>
-<button class="secondary" onclick="clearText()">გასუფთავება</button>
+  <button onclick="copyText()">▣ ტექსტის კოპირება</button>
+  <button class="secondary" onclick="clearText()">✕ გასუფთავება</button>
 </div>
-<footer>Text Counter · უფასო ონლაინ ხელსაწყო</footer>
+
+<div class="status" id="status" aria-live="polite"></div>
+
+<footer>✦ Text Counter · უფასო ონლაინ ხელსაწყო</footer>
 </main>
 
 <script>
 const t=document.getElementById('text');
+const statusBox=document.getElementById('status');
 
 function count(){
   const s=t.value;
@@ -91,23 +271,36 @@ function count(){
     (s.match(/\p{P}/gu)||[]).length;
 }
 
-t.addEventListener('input',count);
+t.addEventListener('input',()=>{
+  count();
+  statusBox.textContent='';
+});
 
 function clearText(){
   t.value='';
   count();
+  statusBox.textContent='ტექსტი გასუფთავდა';
   t.focus();
 }
 
 async function copyText(){
-  if(!t.value)return;
+  if(!t.value){
+    statusBox.textContent='ჯერ ჩაწერე ტექსტი';
+    return;
+  }
   try{
     await navigator.clipboard.writeText(t.value);
-  }catch{
+    statusBox.textContent='ტექსტი დაკოპირდა ✓';
+  }catch(e){
     t.select();
-    document.execCommand('copy');
+    const ok=document.execCommand('copy');
+    statusBox.textContent=ok
+      ?'ტექსტი დაკოპირდა ✓'
+      :'ტექსტის მონიშვნა შეგიძლია ხელით დააკოპირო';
   }
 }
+
+count();
 </script>
 </body>
 </html>
