@@ -6,22 +6,50 @@
 <title>Text Counter</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;padding:25px 16px;background:#4682C8;color:#101827;font-family:Arial,sans-serif}
+body{
+  margin:0;
+  padding:25px 16px;
+  background:#4682C8;
+  color:#101827;
+  font-family:Arial,sans-serif;
+}
 main{max-width:1000px;margin:auto}
 header{text-align:center;margin:15px 0 30px}
-.logo{width:125px;height:125px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 18px;border:3px solid #1675e8;background:#101827}
+.logo{
+  width:125px;height:125px;
+  border-radius:50%;object-fit:cover;
+  display:block;margin:0 auto 18px;
+  border:3px solid #24569A;
+}
 h1{font-size:42px;margin:5px}
-.sub{color:#244d7c;font-size:17px}
-textarea{width:100%;height:240px;padding:18px;background:#f5faff;color:#101827;border:2px solid #439cff;border-radius:17px;font-size:17px;line-height:1.7;resize:vertical}
-.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px}
-.stat{background:#d7ecff;border:2px solid #55a6ff;border-radius:18px;padding:25px 8px;text-align:center}
+.sub{color:#102F59;font-size:17px}
+textarea{
+  width:100%;height:240px;padding:18px;
+  background:#F5F8FF;color:#101827;
+  border:2px solid #24569A;border-radius:17px;
+  font-size:17px;line-height:1.7;resize:vertical;
+}
+.stats{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;margin-top:20px;
+}
+.stat{
+  background:#DCE8F8;border:2px solid #7199CF;
+  border-radius:18px;padding:25px 8px;text-align:center;
+}
 .num{font-size:38px;font-weight:bold}
-.label{color:#244d7c;margin-top:9px}
+.label{color:#24466F;margin-top:9px}
 .buttons{display:flex;gap:12px;margin-top:18px}
-button{flex:1;padding:15px 8px;border-radius:12px;background:#1675e8;color:white;border:0;font-size:15px;font-weight:bold;cursor:pointer}
-button.secondary{background:#172b46;color:white}
-footer{text-align:center;color:#244d7c;margin-top:30px;font-size:14px}
-@media(min-width:700px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
+button{
+  flex:1;padding:15px 8px;border-radius:12px;
+  background:#173F78;color:white;border:0;
+  font-size:15px;font-weight:bold;cursor:pointer;
+}
+button.secondary{background:#172B46}
+footer{text-align:center;color:#102F59;margin-top:30px;font-size:14px}
+@media(min-width:700px){
+  .stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
 </style>
 </head>
 <body>
@@ -31,34 +59,54 @@ footer{text-align:center;color:#244d7c;margin-top:30px;font-size:14px}
 <h1>Text Counter</h1>
 <p class="sub">ტექსტის მთვლელი — მარტივი და სწრაფი</p>
 </header>
+
 <textarea id="text" placeholder="ჩაწერე ან ჩასვი ტექსტი აქ..."></textarea>
+
 <section class="stats">
 <div class="stat"><div class="num" id="words">0</div><div class="label">📝 სიტყვები</div></div>
 <div class="stat"><div class="num" id="letters">0</div><div class="label">🔤 ასოები</div></div>
 <div class="stat"><div class="num" id="digits">0</div><div class="label">🔢 ციფრები</div></div>
 <div class="stat"><div class="num" id="punct">0</div><div class="label">✍️ სასვენი ნიშნები</div></div>
 </section>
+
 <div class="buttons">
 <button onclick="copyText()">ტექსტის კოპირება</button>
 <button class="secondary" onclick="clearText()">გასუფთავება</button>
 </div>
 <footer>Text Counter · უფასო ონლაინ ხელსაწყო</footer>
 </main>
+
 <script>
 const t=document.getElementById('text');
+
 function count(){
-const s=t.value;
-document.getElementById('words').textContent=s.trim()?s.trim().split(/\s+/u).length:0;
-document.getElementById('letters').textContent=(s.match(/\p{L}/gu)||[]).length;
-document.getElementById('digits').textContent=(s.match(/\p{N}/gu)||[]).length;
-document.getElementById('punct').textContent=(s.match(/\p{P}/gu)||[]).length;
+  const s=t.value;
+  document.getElementById('words').textContent=
+    s.trim()?s.trim().split(/\s+/u).length:0;
+  document.getElementById('letters').textContent=
+    (s.match(/\p{L}/gu)||[]).length;
+  document.getElementById('digits').textContent=
+    (s.match(/\p{N}/gu)||[]).length;
+  document.getElementById('punct').textContent=
+    (s.match(/\p{P}/gu)||[]).length;
 }
+
 t.addEventListener('input',count);
-function clearText(){t.value='';count();t.focus();}
+
+function clearText(){
+  t.value='';
+  count();
+  t.focus();
+}
+
 async function copyText(){
-if(!t.value)return;
-try{await navigator.clipboard.writeText(t.value);}
-catch{t.select();document.execCommand('copy');}
+  if(!t.value)return;
+  try{
+    await navigator.clipboard.writeText(t.value);
+  }catch{
+    t.select();
+    document.execCommand('copy');
+  }
 }
 </script>
 </body>
