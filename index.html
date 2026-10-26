@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="UTF-8">
+<title>Text Counter</title>
+</head>
+<body>
+<h1>Text Counter</h1>
+<textarea id="t" placeholder="ჩაწერე ტექსტი" oninput="count()"></textarea>
+<p>სიტყვები: <span id="w">0</span></p>
+<p>სიმბოლოები: <span id="c">0</span></p>
+<script>
+function count(){let t=document.getElementById("t").value;document.getElementById("w").textContent=t.trim()?t.trim().split(/\s+/).length:0;document.getElementById("c").textContent=t.length}
+</script>
+</body>
+</html>
